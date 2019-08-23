@@ -17,7 +17,7 @@ char **tokenizer(char *string_to_split, char *delim)
 		for (j = 0; delim[j]; j++)
 			if (string_to_split[i] == delim[j])
 				count_words++;
-	token = strtok(string_to_split, delim);	/*Get the 1st token*/
+	token = _strtok(string_to_split, delim);	/*Get the 1st token*/
 	tokens = calloc((count_words + 1), sizeof(char *));
 	if (tokens == NULL)
 		return (NULL);
@@ -30,7 +30,7 @@ char **tokenizer(char *string_to_split, char *delim)
 			return (NULL);
 		}
 		count_buff++;
-		token = strtok(NULL, delim);
+		token = _strtok(NULL, delim);
 	}
 	tokens[count_buff] = NULL;/*Finish the **array with NULL*/
 	return (tokens);
@@ -53,7 +53,7 @@ char **path_exp(char **vect, char **env)
 	for (i = 0; env[i] != NULL; i++)
 	{
 		cp_env = strdup(env[i]);
-		token = strtok(cp_env, delim);
+		token = _strtok(cp_env, delim);
 		cp_tok = strdup(token);
 		if (strcmp(cp_tok, "PATH") == 0)/*PILAS strcmp*/
 		{
