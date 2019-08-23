@@ -29,6 +29,7 @@ char *_strdup(char *str);
 void _freearrp(char **av);
 void *_calloc(unsigned int nmemb, unsigned int size);
 char *str_concat(char *s1, char *s2);
+char *_strtok (char *s, char *delim);
 
 /*shell functions*/
 char *read_line(void);
