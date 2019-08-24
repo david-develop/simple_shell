@@ -12,6 +12,7 @@ char *read_line(void)
 	size_t buffsz = 0;
 	ssize_t verif = 1;
 	char *prompt;
+	char nl = '\n';
 
 	prompt = GRN "mini-shell--" RESET RED "$ " RESET;
 
@@ -21,7 +22,7 @@ char *read_line(void)
 		verif = getline(&line, &buffsz, stdin);
 		if (verif == -1)
 		{
-/*			print_string("\n");*/
+			write(STDIN_FILENO, &nl, 1);
 			free(line);
 			exit(0);
 		}
@@ -29,7 +30,5 @@ char *read_line(void)
 			continue;
 		return (line);
 	}
-	print_string("\n");
-	free(line);
-	exit(98);
+	return (NULL);
 }

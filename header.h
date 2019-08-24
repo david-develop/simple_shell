@@ -17,7 +17,7 @@
 typedef struct built
 {
 	char *bui;
-	void (*f)(char **av, char *line);
+	void (*f)(char **av, char *line, char ***env);
 } built_t;
 
 extern char **environ;
@@ -29,18 +29,18 @@ char *_strdup(char *str);
 void _freearrp(char **av);
 void *_calloc(unsigned int nmemb, unsigned int size);
 char *str_concat(char *s1, char *s2);
-char *_strtok (char *s, char *delim);
+char *_strtok(char *s, char *delim);
 
 /*shell functions*/
 char *read_line(void);
 char **split_line(char *line);
-int builtins(char **av, char *line);
+int builtins(char **av, char *line, char **env);
 char **path_exp(char **av, char **env);
 int exec_func(char **av, char *line, const char *argv_0);
 
 /*Builtins*/
-void exit_f(char **av, char *line);
-void env_f(char **av, char *line);
+void exit_f(char **av, char *line, char ***env);
+void env_f(char **av, char *line, char ***env);
 ssize_t _getline(char **line, size_t *buffsz, FILE *stream);
 
 #endif

@@ -46,7 +46,7 @@ int main(int argc, char **argv, char **env)
 			free(line);
 			exit(98);
 		}
-		chk_build = builtins(av, line);
+		chk_build = builtins(av, line, env);
 		if (chk_build == 1)
 		{
 			chk_build = 0;

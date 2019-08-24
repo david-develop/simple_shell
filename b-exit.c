@@ -58,10 +58,11 @@ int _atoi(char *s)
  * @av: array of pointers with arguments.
  * @line: string input by user
  */
-void exit_f(char **av, char *line)
+void exit_f(char **av, char *line, char ***env)
 {
 	int i;
 	int sta_n;
+	(void) env;
 
 	if (av[1])
 	{
