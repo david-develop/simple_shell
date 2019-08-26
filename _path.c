@@ -12,18 +12,17 @@ char **tokenizer(char *string_to_split, char *delim)
 	char **tokens;
 	char *token;
 
-
 	for (i = 0; string_to_split[i]; i++)/*Count num of words to define malloc*/
 		for (j = 0; delim[j]; j++)
 			if (string_to_split[i] == delim[j])
 				count_words++;
 	token = _strtok(string_to_split, delim);	/*Get the 1st token*/
-	tokens = calloc((count_words + 1), sizeof(char *));
+	tokens = _calloc((count_words + 1), sizeof(char *));
 	if (tokens == NULL)
 		return (NULL);
 	while (token != NULL)/*Get other tokens*/
 	{
-		tokens[count_buff] = strdup(token);
+		tokens[count_buff] = _strdup(token);
 		if (tokens[count_buff] == NULL)
 		{
 			_freearrp(tokens);
@@ -52,20 +51,20 @@ char **path_exp(char **vect, char **env)
 		return (vect);
 	for (i = 0; env[i] != NULL; i++)
 	{
-		cp_env = strdup(env[i]);
+		cp_env = _strdup(env[i]);
 		token = _strtok(cp_env, delim);
-		cp_tok = strdup(token);
-		if (strcmp(cp_tok, "PATH") == 0)/*PILAS strcmp*/
+		cp_tok = _strdup(token);
+		if (_strcmp(cp_tok, "PATH") == 0)/*PILAS strcmp*/
 		{
 			free(cp_tok), free(cp_env);
 			break; }
 		free(cp_tok), free(cp_env);
 	}
-	if (strchr(env[i], '/'))/*PILAS*/
+	if (_strchr(env[i], '/'))/*PILAS*/
 	{
 		if (env[i][5] == ':')
 			return (vect);
-		string_to_split = strdup(strchr(env[i], '/')); }
+		string_to_split = _strdup(_strchr(env[i], '/')); }
 	else
 		return (vect);
 	tokens = tokenizer(string_to_split, ":");

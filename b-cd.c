@@ -50,7 +50,6 @@ char **setenv_cd(char *name_var, char *cont_var, char **env)
 		return (env);
 	}
 }
-
 /**
  * change_dir - change directory
  * @av: array of pointers with arguments.
@@ -72,7 +71,7 @@ int change_dir(char **av, char *line, char ***env)
 			print_string("coudn't find variable");
 			return (1);
 		}
-		directory = strchr((*env)[i], '/');/*The new PWD*/
+		directory = _strchr((*env)[i], '/');/*The new PWD*/
 		if (directory == NULL)
 		{
 			print_string("coudn't find dir");
@@ -95,7 +94,7 @@ int change_dir(char **av, char *line, char ***env)
 			print_string("coudn't find variable");
 			return (1);
 		}
-		directory = _strdup(strchr((*env)[i], '/'));
+		directory = _strdup(_strchr((*env)[i], '/'));
 		if (directory == NULL)
 		{
 			print_string("coudn't find dir");
