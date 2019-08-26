@@ -107,6 +107,7 @@ int change_dir(char **av, char *line, char ***env)
 		chdir(directory);
 		*env = setenv_cd("OLDPWD", old_pwd, *env);
 		*env = setenv_cd("PWD", directory, *env);
+		print_string(directory), print_string("\n");
 		free(buf);
 		free(directory);
 	}

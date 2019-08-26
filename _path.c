@@ -62,7 +62,7 @@ char **path_exp(char **vect, char **env)
 	}
 	if (_strchr(env[i], '/'))/*PILAS*/
 	{
-		if (env[i][5] == ':')
+		if (env[i][5] == ':' || strstr(env[i], "::") != NULL)
 			return (vect);
 		string_to_split = _strdup(_strchr(env[i], '/')); }
 	else
