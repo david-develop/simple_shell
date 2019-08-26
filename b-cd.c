@@ -57,15 +57,16 @@ char **setenv_cd(char *name_var, char *cont_var, char **env)
  * @av: array of pointers with arguments.
  * @line: string input by user
  * @env: enviromental variables
+ * @errval: error print data.
  * Return: 1 if function executed.
  */
-int change_dir(char **av, char *line, char ***env)
+int change_dir(char **av, char *line, char ***env, err_t *errval)
 {
 	char *directory, *old_pwd, *dir_ptr, *buf;
-	int i;
+	int i, verif;
 	(void) line;
 
-	if (!av[1])/*cd   or HOME*/
+	if (!av[1])/*cd or HOME*/
 	{
 		i = findenv(*env, "HOME");
 		if (i == -1)
@@ -105,6 +106,17 @@ int change_dir(char **av, char *line, char ***env)
 		chdir(directory);
 	}
 	else
-		chdir(av[1]);
+	{
+		verif = chdir(av[1]);
+		if (verif == -1)
+		{
+			write(STDERR_FILENO, errval->argv_0, _strlen(errval->argv_0));
+			write(STDERR_FILENO, ": ", 2);
+			print_err_numb(errval->e_c);
+			write(STDERR_FILENO, ": cd: can't cd to ", 18);
+			write(STDERR_FILENO, av[1], _strlen(av[1]));
+			write(STDERR_FILENO, "\n", 1);
+		}
+	}
 	return (1);
 }

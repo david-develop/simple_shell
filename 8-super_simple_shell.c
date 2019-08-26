@@ -34,6 +34,7 @@ int main(int argc, char **argv, char **env)
 	char **env_cp;
 	int status = 1;
 	int chk_build = 0;
+	err_t errval = {argv[0], 0};
 	(void)argc;
 
 	env_cp = _cpyarrp(env);
@@ -42,13 +43,14 @@ int main(int argc, char **argv, char **env)
 	while (status)
 	{
 		line = read_line(env_cp);
+		errval.e_c = errval.e_c + 1;
 		av = split_line(line);
 		if (av == NULL)
 		{
 			free(line);
 			exit(98);
 		}
-		chk_build = (*builtins(av[0]))(av, line, &env_cp);
+		chk_build = (*builtins(av[0]))(av, line, &env_cp, &errval);
 		if (chk_build == 1)
 		{
 			chk_build = 0;
@@ -57,7 +59,7 @@ int main(int argc, char **argv, char **env)
 			continue;
 		}
 		av = path_exp(av, env_cp);
-		status = exec_func(av, line, env_cp, argv[0]);
+		status = exec_func(av, line, env_cp, &errval);
 
 		free(line);
 		_freearrp(av);

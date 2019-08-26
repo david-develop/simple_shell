@@ -9,6 +9,18 @@
 #include <sys/stat.h>
 
 /**
+ * struct er_val - Struct built
+ *
+ * @bui: builtin name.
+ * @f: The function associated
+ */
+typedef struct er_val
+{
+	char *argv_0;
+	int e_c;
+} err_t;
+
+/**
  * struct built - Struct built
  *
  * @bui: builtin name.
@@ -17,7 +29,7 @@
 typedef struct built
 {
 	char *bui;
-	int (*f)(char **av, char *line, char ***env);
+	int (*f)(char **av, char *line, char ***env, err_t *errval);
 } built_t;
 
 extern char **environ;
@@ -32,20 +44,21 @@ char *str_concat(char *s1, char *s2);
 char *_strtok(char *s, char *delim);
 char **_cpyarrp(char **arrp);
 int findenv(char **env, char *cmp_val);
+void print_err_numb(int n);
 
 /*shell functions*/
 char *read_line(char **env);
 char **split_line(char *line);
-int (*builtins(char *av_0))(char **, char *, char ***);
+int (*builtins(char *av_0))(char **, char *, char ***, err_t *);
 char **path_exp(char **av, char **env);
-int exec_func(char **av, char *line, char **env, const char *argv_0);
+int exec_func(char **av, char *line, char **env, err_t *errval);
 
 /*Builtins*/
-int exit_f(char **av, char *line, char ***env);
-int env_f(char **av, char *line, char ***env);
+int exit_f(char **av, char *line, char ***env, err_t *errval);
+int env_f(char **av, char *line, char ***env, err_t *errval);
 ssize_t _getline(char **line, size_t *buffsz, FILE *stream);
-int setenv_f(char **av, char *line, char ***env);
-int unsetenv_f(char **av, char *line, char ***env);
-int change_dir(char **av, char *line, char ***env);
+int setenv_f(char **av, char *line, char ***env, err_t *errval);
+int unsetenv_f(char **av, char *line, char ***env, err_t *errval);
+int change_dir(char **av, char *line, char ***env, err_t *errval);
 
 #endif

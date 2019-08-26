@@ -18,7 +18,6 @@ char **new_envmod(char **env, int idx)
 	new_env = malloc(i * sizeof(char *));
 	if (new_env == NULL)
 	{
-		print_string("cpy env failed");/*check errors*/
 		return (NULL);
 	}
 	for (j = 0; j < idx; j++)
@@ -26,8 +25,6 @@ char **new_envmod(char **env, int idx)
 	for (; j < (i - 1); j++)
 		new_env[j] = _strdup(env[j + 1]);
 	new_env[j] = NULL;
-	print_string(env[idx]);/*just for trial*/
-	print_string(" -> deleted\n");/*just for trial*/
 	_freearrp(env);
 	return (new_env);
 }
@@ -37,23 +34,35 @@ char **new_envmod(char **env, int idx)
  * @av: array of pointers with arguments.
  * @line: string input by user
  * @env: enviroment variables.
+ * @errval: error print data.
  * Return: 1 if executed.
  */
-int unsetenv_f(char **av, char *line, char ***env)
+int unsetenv_f(char **av, char *line, char ***env, err_t *errval)
 {
 	int verif;
 	(void) line;
 
 	if (av[1] == NULL || av[2])
 	{
-		perror("setevn: illegal number of argument"); /* MODIFICAR PARA STDERR*/
+		write(STDERR_FILENO, errval->argv_0, _strlen(errval->argv_0));
+		write(STDERR_FILENO, ": ", 2);
+		print_err_numb(errval->e_c);
+		write(STDERR_FILENO, ": ", 2);
+		write(STDERR_FILENO, av[0], _strlen(av[0]));
+		write(STDERR_FILENO, ": wrong sintax\n", 15);
 		return (1);
 	}
 	verif = findenv((*env), av[1]);
 	if (verif == -1)
 	{
-		print_string("variable not found\n");
-		/**env = new_env(av, (*env));*/
+		write(STDERR_FILENO, errval->argv_0, _strlen(errval->argv_0));
+		write(STDERR_FILENO, ": ", 2);
+		print_err_numb(errval->e_c);
+		write(STDERR_FILENO, ": ", 2);
+		write(STDERR_FILENO, av[0], _strlen(av[0]));
+		write(STDERR_FILENO, ": ", 2);
+		write(STDERR_FILENO, av[1], _strlen(av[1]));
+		write(STDERR_FILENO, ": nonexistent variable\n", 23);
 		return (1);
 	}
 	else
