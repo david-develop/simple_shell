@@ -28,7 +28,7 @@ int (*builtins(char *av_0))(char **, char *, char ***)
 		{"env", env_f},
 		{"setenv", setenv_f},
 		{"unsetenv", unsetenv_f},
-    {"cd", change_dir},
+		{"cd", change_dir},
 		{NULL, non_match}
 };
 
