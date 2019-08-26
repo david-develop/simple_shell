@@ -46,5 +46,6 @@ int env_f(char **av, char *line, char ***env);
 ssize_t _getline(char **line, size_t *buffsz, FILE *stream);
 int setenv_f(char **av, char *line, char ***env);
 int unsetenv_f(char **av, char *line, char ***env);
+int change_dir(char **av, char *line, char ***env);
 
 #endif

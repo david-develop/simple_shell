@@ -28,11 +28,12 @@ int (*builtins(char *av_0))(char **, char *, char ***)
 		{"env", env_f},
 		{"setenv", setenv_f},
 		{"unsetenv", unsetenv_f},
+    {"cd", change_dir},
 		{NULL, non_match}
-	};
+};
 
 	int i;
-	int num_builts = 4;
+	int num_builts = 5;
 
 	for (i = 0; i < num_builts; i++)
 	{
