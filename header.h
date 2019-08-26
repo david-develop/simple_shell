@@ -45,6 +45,8 @@ char *_strtok(char *s, char *delim);
 char **_cpyarrp(char **arrp);
 int findenv(char **env, char *cmp_val);
 void print_err_numb(int n);
+int _strcmp(char *s1, char *s2);
+char *_strchr(char *s, char c);
 
 /*shell functions*/
 char *read_line(char **env);
