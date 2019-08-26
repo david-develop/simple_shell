@@ -13,7 +13,7 @@ char **setenv_cd(char *name_var, char *cont_var, char **env)
 {
 	int verif, i, j;
 	char delim[] = "=";
-	char *token, *mod_env, *aux, *new_evar;
+	char *mod_env, *aux, *new_evar;
 	char **new_env;
 
 	verif = findenv(env, name_var);
@@ -42,9 +42,8 @@ char **setenv_cd(char *name_var, char *cont_var, char **env)
 	}
 	else
 	{
-		token = _strtok(env[verif], delim);
 		aux = str_concat(delim, cont_var);
-		mod_env = str_concat(token, aux);
+		mod_env = str_concat(name_var, aux);
 		free(env[verif]);
 		env[verif] = mod_env;
 		free(aux);
@@ -79,7 +78,7 @@ int change_dir(char **av, char *line, char ***env)
 			print_string("coudn't find dir");
 			return (1);
 		}
-		buf = malloc(PATH_MAX * sizeof(char));
+		buf = malloc(PATH_MAX * sizeof(char));/*Change env var manually*/
 		if (buf != NULL)
 			dir_ptr = getcwd(buf, PATH_MAX);
 		old_pwd = dir_ptr;
@@ -96,15 +95,32 @@ int change_dir(char **av, char *line, char ***env)
 			print_string("coudn't find variable");
 			return (1);
 		}
-		directory = strchr((*env)[i], '/');
+		directory = _strdup(strchr((*env)[i], '/'));
 		if (directory == NULL)
 		{
 			print_string("coudn't find dir");
 			return (1);
 		}
+		buf = malloc(PATH_MAX * sizeof(char));/*Change env var manually*/
+		if (buf != NULL)
+			dir_ptr = getcwd(buf, PATH_MAX);
+		old_pwd = dir_ptr;
 		chdir(directory);
+		*env = setenv_cd("OLDPWD", old_pwd, *env);
+		*env = setenv_cd("PWD", directory, *env);
+		free(buf);
+		free(directory);
 	}
 	else
+	{
+		buf = malloc(PATH_MAX * sizeof(char));/*Change env var manually*/
+		if (buf != NULL)
+			dir_ptr = getcwd(buf, PATH_MAX);
+		old_pwd = dir_ptr;
 		chdir(av[1]);
+		*env = setenv_cd("OLDPWD", old_pwd, *env);
+		*env = setenv_cd("PWD", getcwd(buf, PATH_MAX), *env);
+		free(buf);
+	}
 	return (1);
 }
