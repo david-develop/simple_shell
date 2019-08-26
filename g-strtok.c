@@ -22,7 +22,8 @@ unsigned int _strspn(char *s, char *accept)
 	return (i);
 }
 /**
- * _strcspn - Write a function that gets the number the characters until the ocurrence
+ * _strcspn - Write a function that gets the number the characters until
+ * the ocurrence
  * @s: input string.
  * @reject: character to be compared.
  * Return: number of char.
@@ -33,7 +34,7 @@ unsigned int _strcspn(char *s, char *reject)
 
 	for (i = 0; s[i] != '\0'; i++)
 		for (j = 0; reject[j] != '\0'; j++)
-			if(s[i] == reject[j])
+			if (s[i] == reject[j])
 				return (i);
 	return (i);
 }
@@ -44,7 +45,7 @@ unsigned int _strcspn(char *s, char *reject)
  * @save_ptr: previous saved pointer.
  * Return: pointer to extracted token.
  */
-char *_strtok_r (char *s, char *delim, char **save_ptr)
+char *_strtok_r(char *s, char *delim, char **save_ptr)
 {
 	char *end;
 	unsigned int n;
@@ -55,7 +56,7 @@ char *_strtok_r (char *s, char *delim, char **save_ptr)
 	if (*s == '\0')
 	{
 		*save_ptr = s;
-		return NULL;
+		return (NULL);
 	}
 
 	/*Locate the pointer s at the beginning of token*/
@@ -65,7 +66,7 @@ char *_strtok_r (char *s, char *delim, char **save_ptr)
 	if (*s == '\0')
 	{
 		*save_ptr = s;
-		return NULL;
+		return (NULL);
 	}
 
 	/*Locate the last character of token*/
@@ -75,14 +76,14 @@ char *_strtok_r (char *s, char *delim, char **save_ptr)
 	if (*end == '\0')
 	{
 		*save_ptr = end;
-		return s;
+		return (s);
 	}
 
 	/*Once get the token, change the delim character by null and save the*/
 	/*beggining of the new token*/
 	*end = '\0';
 	*save_ptr = end + 1;
-	return s;
+	return (s);
 }
 /**
  * _strtok - gets the token of a given string
@@ -90,8 +91,9 @@ char *_strtok_r (char *s, char *delim, char **save_ptr)
  * @delim: the delimiter
  * Return: pointer to extracted token.
  */
-char *_strtok (char *s, char *delim)
+char *_strtok(char *s, char *delim)
 {
 	static char *saved_ptr;
-	return _strtok_r (s, delim, &saved_ptr);
+
+	return (_strtok_r(s, delim, &saved_ptr));
 }

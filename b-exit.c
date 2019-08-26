@@ -57,11 +57,14 @@ int _atoi(char *s)
  * exit_f - exit builtin
  * @av: array of pointers with arguments.
  * @line: string input by user
+ * @env: enviroment variables data struct.
+ * Return: 1 if executed.
  */
-void exit_f(char **av, char *line)
+int exit_f(char **av, char *line, char ***env)
 {
 	int i;
 	int sta_n;
+	(void) env;
 
 	if (av[1])
 	{
@@ -71,15 +74,17 @@ void exit_f(char **av, char *line)
 			{
 				/*revisar errors*/
 				perror("error: exit ilegal status");
-				return;
+				return (1);
 			}
 		}
 		sta_n = _atoi(av[1]);
 		free(line);
 		_freearrp(av);
+		_freearrp(*env);
 		exit(sta_n);
 	}
 	free(line);
 	_freearrp(av);
+	_freearrp(*env);
 	exit(0);
 }
