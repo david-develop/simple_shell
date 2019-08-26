@@ -21,7 +21,7 @@ char **new_env(char **av, char **env)
 	new_env = malloc((i + 2) * sizeof(char *));
 	if (new_env == NULL)
 	{
-		print_string("cpy env failed");//check errors
+		print_string("cpy env failed");/*check errors*/
 		free(aux);
 		free(new_evar);
 		return (NULL);
@@ -30,8 +30,8 @@ char **new_env(char **av, char **env)
 	{
 		new_env[j] = _strdup(env[j]);
 	}
-	print_string(new_evar);//just for trial
-	print_string("\n");//just for trial
+	print_string(new_evar);/*just for trial*/
+	print_string("\n");/*just for trial*/
 	new_env[j] = new_evar;
 	new_env[j + 1] = NULL;
 	free(aux);
@@ -54,7 +54,7 @@ int setenv_f(char **av, char *line, char ***env)
 
 	if (av[1] == NULL || av[2] == NULL || av[3])
 	{
-		perror("setevn: illegal number of argument"); // MODIFICAR PARA STDERR
+		perror("setevn: illegal number of argument"); /* MODIFICAR PARA STDERR*/
 		return (1);
 	}
 	verif = findenv((*env), av[1]);

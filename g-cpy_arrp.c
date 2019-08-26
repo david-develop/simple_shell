@@ -18,7 +18,7 @@ char **_cpyarrp(char **arrp)
 	index = malloc((i + 1) * sizeof(char *));
 	if (index == NULL)
 	{
-		print_string("cpy env failed");//check errors
+		print_string("cpy env failed");/*check errors*/
 		return(NULL);
 	}
 	for (j = 0; j < i; j++)
