@@ -45,7 +45,7 @@ char **new_env(char **av, char **env)
  * @line: string input by user
  * @env: enviroment variables.
  */
-int setenv_f(char **av, char *line, char ***env)
+int unsetenv_f(char **av, char *line, char ***env)
 {
 	int verif;
 	char delim[] = "=";
@@ -61,7 +61,7 @@ int setenv_f(char **av, char *line, char ***env)
 	if (verif == -1)
 	{
 		print_string("variable not found\n");
-		*env = new_env(av, (*env));
+		//*env = new_env(av, (*env));
 		return (1);
 	}
 	else

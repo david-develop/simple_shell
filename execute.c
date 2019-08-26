@@ -7,7 +7,7 @@
  * @argv_0: first argument after tokenization
  * Return: Always 0.
  */
-int exec_func(char **av, char *line, const char *argv_0)
+int exec_func(char **av, char *line, char **env, const char *argv_0)
 {
 	pid_t child_pid;
 	int status;
@@ -23,6 +23,7 @@ int exec_func(char **av, char *line, const char *argv_0)
 		{
 			perror(argv_0);
 			_freearrp(av);
+			_freearrp(env);
 			free(line);
 			exit(98);
 		}

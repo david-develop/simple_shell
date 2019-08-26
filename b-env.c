@@ -5,7 +5,7 @@
  * @av: array of pointers with arguments.
  * @line: string input by user
  */
-void env_f(char **av, char *line, char ***env)
+int env_f(char **av, char *line, char ***env)
 {
 	unsigned int i;
 	(void) line;
@@ -18,4 +18,5 @@ void env_f(char **av, char *line, char ***env)
 		print_string("\n");
 		i++;
 	}
+	return (1);
 }

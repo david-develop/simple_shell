@@ -6,7 +6,7 @@
  * read_line - read the input line from the stream.
  * Return: pointer to the string.
  */
-char *read_line(void)
+char *read_line(char **env)
 {
 	char *line = NULL;
 	size_t buffsz = 0;
@@ -23,6 +23,7 @@ char *read_line(void)
 		if (verif == -1)
 		{
 			write(STDIN_FILENO, &nl, 1);
+			_freearrp(env);
 			free(line);
 			exit(0);
 		}
