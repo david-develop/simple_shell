@@ -41,5 +41,6 @@ int exec_func(char **av, char *line, const char *argv_0);
 /*Builtins*/
 void exit_f(char **av, char *line);
 void env_f(char **av, char *line);
+void change_dir(char **av, char *line);
 
 #endif
