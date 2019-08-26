@@ -4,6 +4,7 @@
 #define RESET "\x1B[0m"
 /**
  * read_line - read the input line from the stream.
+ * @env: enviroments.
  * Return: pointer to the string.
  */
 char *read_line(char **env)

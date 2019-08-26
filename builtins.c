@@ -17,9 +17,8 @@ int non_match(char **av, char *line, char ***env)
 }
 /**
  * builtins - functions that verify if builtins and execute.
- * @av: array of pointers with arguments.
- * @line: string input by user
- * Return: 1 if builtint executed, 0 if not.
+ * @av_0: argument.
+ * Return: value of executed functions.
  */
 int (*builtins(char *av_0))(char **, char *, char ***)
 {
@@ -39,7 +38,7 @@ int (*builtins(char *av_0))(char **, char *, char ***)
 	{
 		if (strcmp(av_0, builts[i].bui) == 0)
 		{
-			return((builts[i].f));
+			return ((builts[i].f));
 		}
 	}
 	return (builts[num_builts].f);

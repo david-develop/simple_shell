@@ -19,12 +19,12 @@ char **_cpyarrp(char **arrp)
 	if (index == NULL)
 	{
 		print_string("cpy env failed");/*check errors*/
-		return(NULL);
+		return (NULL);
 	}
 	for (j = 0; j < i; j++)
 	{
 		index[j] = _strdup(arrp[j]);
 	}
 	index[j] = NULL;
-	return(index);
+	return (index);
 }

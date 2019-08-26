@@ -4,6 +4,7 @@
  * exec_func - process the arguments and executes the proccesses
  * @av: array of pointers with arguments.
  * @line: string input by user
+ * @env: enviroments.
  * @argv_0: first argument after tokenization
  * Return: Always 0.
  */

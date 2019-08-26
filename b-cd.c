@@ -1,12 +1,15 @@
-#include "header.h"  
+#include "header.h"
 #define PATH_MAX 4096
+
 /**
- * setenv_f - Initialize a new environment variable, or modify an existing one
- * @av: array of pointers with arguments.
- * @line: string input by user
+ * setenv_cd - Initialize a new environment variable, or modify an existing one
+ * @name_var: variable name.
+ * @cont_var: variable value.
  * @env: enviroment variables.
+ * Return: pointer to the new enviroment data struct.
  */
-char **setenv_cd(char * name_var, char *cont_var, char **env)
+
+char **setenv_cd(char *name_var, char *cont_var, char **env)
 {
 	int verif, i, j;
 	char delim[] = "=";
@@ -19,10 +22,8 @@ char **setenv_cd(char * name_var, char *cont_var, char **env)
 
 		for (i = 0; env[i] != NULL; i++) /*count index*/
 			;
-		/*create new variable*/
 		aux = str_concat("=", cont_var);
 		new_evar = str_concat(name_var, aux);
-
 		new_env = malloc((i + 2) * sizeof(char *));/*Re-allocate for new variable*/
 		if (new_env == NULL)
 		{
@@ -56,14 +57,14 @@ char **setenv_cd(char * name_var, char *cont_var, char **env)
  * @av: array of pointers with arguments.
  * @line: string input by user
  * @env: enviromental variables
+ * Return: 1 if function executed.
  */
 int change_dir(char **av, char *line, char ***env)
 {
 	char *directory, *old_pwd, *dir_ptr, *buf;
 	int i;
-	
 	(void) line;
-	
+
 	if (!av[1])/*cd   or HOME*/
 	{
 		i = findenv(*env, "HOME");
@@ -78,7 +79,8 @@ int change_dir(char **av, char *line, char ***env)
 			print_string("coudn't find dir");
 			return (1);
 		}
-		if ((buf = malloc(PATH_MAX * sizeof(char))) != NULL)
+		buf = malloc(PATH_MAX * sizeof(char));
+		if (buf != NULL)
 			dir_ptr = getcwd(buf, PATH_MAX);
 		old_pwd = dir_ptr;
 		chdir(directory);
@@ -104,6 +106,5 @@ int change_dir(char **av, char *line, char ***env)
 	}
 	else
 		chdir(av[1]);
-	
 	return (1);
 }

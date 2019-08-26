@@ -1,8 +1,9 @@
 #include "header.h"
 
 /**
- * _cpyarrp - create a copy of char data structure
- * @arrp: input data structure.
+ * new_env - create a new enviroment with the given parameters.
+ * @av: input arguments.
+ * @env: enviroments.
  * Return: pointer to created data struct.
  */
 char **new_env(char **av, char **env)
@@ -44,6 +45,7 @@ char **new_env(char **av, char **env)
  * @av: array of pointers with arguments.
  * @line: string input by user
  * @env: enviroment variables.
+ * Return: 1 if executed.
  */
 int setenv_f(char **av, char *line, char ***env)
 {
@@ -54,7 +56,7 @@ int setenv_f(char **av, char *line, char ***env)
 
 	if (av[1] == NULL || av[2] == NULL || av[3])
 	{
-		perror("setevn: illegal number of argument"); /* MODIFICAR PARA STDERR*/
+		perror("setevn: illegal number of argument"); /*MODIFICAR PARA STDERR*/
 		return (1);
 	}
 	verif = findenv((*env), av[1]);
