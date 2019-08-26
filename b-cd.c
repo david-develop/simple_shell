@@ -1,13 +1,15 @@
-#include "header.h"  
+#include "header.h"
 /**
  * exit_f - exit builtin
  * @av: array of pointers with arguments.
  * @line: string input by user
  */
-void change_dir(char **av, char *line)
+int change_dir(char **av, char *line, char ***env)
 {
 	char *directory;
 	(void) line;
+	(void) env;
+
 	if (!av[1])/*cd*/
 	{
 		directory = getenv("HOME");
@@ -20,5 +22,5 @@ void change_dir(char **av, char *line)
 	}
 	else
 		chdir(av[1]);
-
+	return (0);
 }
