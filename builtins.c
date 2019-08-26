@@ -11,6 +11,7 @@ int builtins(char **av, char *line)
 	built_t builts[] = {
 		{"exit", exit_f},
 		{"env", env_f},
+		{"cd", change_dir},
 		{NULL, NULL}
 	};
 
