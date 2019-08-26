@@ -22,13 +22,6 @@ int findenv(char **env, char *cmp_val)
 		cp_tok = _strdup(token);
 		if (strcmp(cp_tok, cmp_val) == 0)/*PILAS strcmp*/
 		{
-			/*aux = (str_concat(delim, av[2]));
-			mod_env = str_concat(cp_tok, aux);
-			print_string(mod_env);
-			print_string("\n");
-			free((*env)[i]);
-			(*env)[i] = mod_env;
-			free(aux);*/
 			free(cp_tok);
 			free(cp_env);
 			return (i);
@@ -40,5 +33,5 @@ int findenv(char **env, char *cmp_val)
 	{
 		return (-1);
 	}
-	return(0);
+	return (0);
 }

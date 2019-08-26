@@ -4,6 +4,8 @@
  * env_f - enviroment builtin prints enviroment variables.
  * @av: array of pointers with arguments.
  * @line: string input by user
+ * @env: enviroment variable.
+ * Return: 1 if executed.
  */
 int env_f(char **av, char *line, char ***env)
 {

@@ -57,6 +57,8 @@ int _atoi(char *s)
  * exit_f - exit builtin
  * @av: array of pointers with arguments.
  * @line: string input by user
+ * @env: enviroment variables data struct.
+ * Return: 1 if executed.
  */
 int exit_f(char **av, char *line, char ***env)
 {

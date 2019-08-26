@@ -33,10 +33,11 @@ char **new_envmod(char **env, int idx)
 }
 
 /**
- * setenv_f - Initialize a new environment variable, or modify an existing one
+ * unsetenv_f - remove existing variable.
  * @av: array of pointers with arguments.
  * @line: string input by user
  * @env: enviroment variables.
+ * Return: 1 if executed.
  */
 int unsetenv_f(char **av, char *line, char ***env)
 {

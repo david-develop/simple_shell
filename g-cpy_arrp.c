@@ -18,13 +18,13 @@ char **_cpyarrp(char **arrp)
 	index = malloc((i + 1) * sizeof(char *));
 	if (index == NULL)
 	{
-		print_string("cpy env failed");//check errors
-		return(NULL);
+		print_string("cpy env failed");/*check errors*/
+		return (NULL);
 	}
 	for (j = 0; j < i; j++)
 	{
 		index[j] = _strdup(arrp[j]);
 	}
 	index[j] = NULL;
-	return(index);
+	return (index);
 }
