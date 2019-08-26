@@ -1,0 +1,23 @@
+#!/bin/bash
+
+SLEEP2=`which sleep`
+SLEEP2SECONDS=.1
+
+gcc -Wall -Werror -Wextra -pedantic *.c -o ssshell
+
+# wait a little bit
+$SLEEP2 $SLEEP2SECONDS
+
+cp ssshell ../suit_test_shell/bog-0619_shell_test_suite
+
+# wait a little bit
+$SLEEP2 $SLEEP2SECONDS
+
+cd ../suit_test_shell/bog-0619_shell_test_suite
+./check_simple_shell.bash
+
+# wait a little bit
+$SLEEP2 $SLEEP2SECONDS
+
+cd -
+rm ssshell

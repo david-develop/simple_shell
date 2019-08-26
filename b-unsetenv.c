@@ -5,7 +5,7 @@
  * @arrp: input data structure.
  * Return: pointer to created data struct.
  */
-char **new_env(char **av, char **env)
+char **new_envmod(char **av, char **env)
 {
 	int i, j;
 	char **new_env;
