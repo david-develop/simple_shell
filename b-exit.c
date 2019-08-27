@@ -24,9 +24,9 @@ int _isdigit(int c)
  *
  * Return: integrer.
  */
-long long int _atoi(char *s)
+long int _atoi(char *s)
 {
-	long long int res = 0, sing = 1, i, si;
+	unsigned long int res = 0, sing = 1, i, si;
 
 	for (i = 0; s[i] != '\0'; i++)
 	{
@@ -64,7 +64,7 @@ long long int _atoi(char *s)
 int exit_f(char **av, char *line, char ***env, err_t *errval)
 {
 	int i;
-	long long int sta_n;
+	long int sta_n;
 	(void) env;
 	(void) errval;
 
@@ -86,7 +86,7 @@ int exit_f(char **av, char *line, char ***env, err_t *errval)
 			}
 		}
 		sta_n = _atoi(av[1]);
-		if (sta_n < 0 || sta_n >= 2147483647 || _strlen(av[1]) > 10)
+		if (sta_n < 0 || sta_n > 2147483647 || _strlen(av[1]) > 10)
 		{
 			write(STDERR_FILENO, errval->argv_0, _strlen(errval->argv_0));
 			write(STDERR_FILENO, ": ", 2);
