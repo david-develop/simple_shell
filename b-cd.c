@@ -112,8 +112,12 @@ int change_dir(char **av, char *line, char ***env, err_t *errval)
 		free(buf);
 		free(directory);
 	}
-	else
+	else if (av[1])
 	{
+		buf = malloc(PATH_MAX * sizeof(char));/*Change env var manually*/
+		if (buf != NULL)
+			dir_ptr = getcwd(buf, PATH_MAX);
+		old_pwd = dir_ptr;
 		verif = chdir(av[1]);
 		if (verif == -1)
 		{
@@ -124,11 +128,6 @@ int change_dir(char **av, char *line, char ***env, err_t *errval)
 			write(STDERR_FILENO, av[1], _strlen(av[1]));
 			write(STDERR_FILENO, "\n", 1);
 		}
-		buf = malloc(PATH_MAX * sizeof(char));/*Change env var manually*/
-		if (buf != NULL)
-			dir_ptr = getcwd(buf, PATH_MAX);
-		old_pwd = dir_ptr;
-		chdir(av[1]);
 		*env = setenv_cd("OLDPWD", old_pwd, *env);
 		*env = setenv_cd("PWD", getcwd(buf, PATH_MAX), *env);
 		free(buf);
