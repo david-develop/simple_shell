@@ -34,9 +34,11 @@ int main(int argc, char **argv, char **env)
 	char **env_cp;
 	int status = 1;
 	int chk_build = 0;
-	err_t errval = {argv[0], 0};
+	err_t errval;
 	(void)argc;
 
+	errval.argv_0 = argv[0];
+	errval.e_c = 0;
 	env_cp = _cpyarrp(env);
 	signal(SIGINT, handle_sign);
 

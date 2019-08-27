@@ -6,7 +6,7 @@
  */
 char **split_line(char *line)
 {
-	char delim[] = " \n";
+	char delim[] = " \n\t\r\a";
 	char *token;
 	char **av;
 	/*Remember coun_words to 0 for the real case*/
