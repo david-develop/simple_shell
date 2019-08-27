@@ -5,6 +5,7 @@
  * @av: array of pointers with arguments.
  * @line: string input by user
  * @env: enviroments address.
+ * @errval: error print data.
  * Return: 0 always.
  */
 int non_match(char **av, char *line, char ***env, err_t *errval)

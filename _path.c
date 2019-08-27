@@ -1,5 +1,10 @@
 #include "header.h"
-
+/**
+ * check_path_mod - modify path for "::" cases.
+ * @path_val: path value.
+ * @vect_0: first command.
+ * Return: Always 0.
+ */
 char *check_path_mod(char *path_val, char *vect_0)
 {
 	int i, j, len;

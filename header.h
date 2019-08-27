@@ -11,8 +11,8 @@
 /**
  * struct er_val - Struct built
  *
- * @bui: builtin name.
- * @f: The function associated
+ * @argv_0: firts command.
+ * @e_c: prompt counter.
  */
 typedef struct er_val
 {

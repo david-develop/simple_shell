@@ -5,9 +5,8 @@
  * @av: array of pointers with arguments.
  * @line: string input by user
  * @env: enviroments.
- * @argv_0: first argument after tokenization
- * @e_c: error counter pointer.
- * Return: Always 0.
+ * @errval: error print data.
+ * Return: Always 1 on success.
  */
 int exec_func(char **av, char *line, char **env, err_t *errval)
 {
