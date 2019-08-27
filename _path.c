@@ -1,4 +1,38 @@
 #include "header.h"
+
+char *check_path_mod(char *path_val)
+{
+	int i, j, len;
+	char *mod_path = NULL;
+
+	if (path_val[0] == ':')
+	{
+		free(path_val);
+		return (NULL);
+	}
+	for (i = 0; path_val[i] != '\0'; i++)
+	{
+		if (path_val[i] == ':' && path_val[i + 1] == ':')
+			break;
+	}
+	len = _strlen(path_val);
+	if (i == len)
+		return (path_val);
+	mod_path = malloc((len + 2) * sizeof(char));
+	for (j = 0; j <= i; j++)
+	{
+		mod_path[j] = path_val[j];
+	}
+	mod_path[j] = '.';
+	for (j++; j <= len; j++)
+	{
+		mod_path[j] = path_val[j - 1];
+	}
+	mod_path[j] = '\0';
+	free(path_val);
+	return (mod_path);
+}
+
 /**
  * tokenizer - split a string.
  * @string_to_split: string to be splited.
@@ -12,17 +46,18 @@ char **tokenizer(char *string_to_split, char *delim)
 	char **tokens;
 	char *token;
 
+
 	for (i = 0; string_to_split[i]; i++)/*Count num of words to define malloc*/
 		for (j = 0; delim[j]; j++)
 			if (string_to_split[i] == delim[j])
 				count_words++;
 	token = _strtok(string_to_split, delim);	/*Get the 1st token*/
-	tokens = _calloc((count_words + 1), sizeof(char *));
+	tokens = calloc((count_words + 1), sizeof(char *));
 	if (tokens == NULL)
 		return (NULL);
 	while (token != NULL)/*Get other tokens*/
 	{
-		tokens[count_buff] = _strdup(token);
+		tokens[count_buff] = strdup(token);
 		if (tokens[count_buff] == NULL)
 		{
 			_freearrp(tokens);
@@ -34,6 +69,7 @@ char **tokenizer(char *string_to_split, char *delim)
 	tokens[count_buff] = NULL;/*Finish the **array with NULL*/
 	return (tokens);
 }
+
 /**
  * path_exp - prints the environment
  * @vect: array of arguments
@@ -42,36 +78,23 @@ char **tokenizer(char *string_to_split, char *delim)
  */
 char **path_exp(char **vect, char **env)
 {
-	unsigned int i, count;
-	char delim[] = "=", **tokens;
-	char *token, *cp_tok, *cp_env, *string_to_split, *mix_direx, *aux_ex;
+	int i;
+	char *path_values, *aux_ex, *mix_direx;
+	char **tokens;
 	struct stat st;
 
+	i = findenv(env, "PATH");
+	if (i == -1)
+		return (vect);
 	if (vect[0][0] == '/' || (vect[0][0] == '.' && vect[0][1] == '/'))
 		return (vect);
-	for (count = 0; env[count] != NULL; count++)
-		;
-	for (i = 0; env[i] != NULL; i++)
+	path_values = _strdup(_strchr(env[i], '=') + 1);
+	path_values = check_path_mod(path_values);
+	if (path_values == NULL)
 	{
-		cp_env = _strdup(env[i]);
-		token = _strtok(cp_env, delim);
-		cp_tok = _strdup(token);
-		if (_strcmp(cp_tok, "PATH") == 0)/*PILAS strcmp*/
-		{
-			free(cp_tok), free(cp_env);
-			break; }
-		free(cp_tok), free(cp_env);
+		return (vect);
 	}
-	if (i == count)
-		return (vect);
-	if (_strchr(env[i], '/'))/*PILAS*/
-	{
-		if (env[i][5] == ':' || strstr(env[i], "::") != NULL)
-			return (vect);
-		string_to_split = _strdup(_strchr(env[i], '/')); }
-	else
-		return (vect);
-	tokens = tokenizer(string_to_split, ":");
+	tokens = tokenizer(path_values, ":");
 	aux_ex = str_concat("/", vect[0]);/*PILAS*/
 	for (i = 0; tokens[i]; i++)
 	{
@@ -84,6 +107,6 @@ char **path_exp(char **vect, char **env)
 		}
 		free(mix_direx);
 	}
-	free(aux_ex), free(string_to_split), _freearrp(tokens);
+	free(aux_ex), free(path_values), _freearrp(tokens);
 	return (vect);
 }

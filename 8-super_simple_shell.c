@@ -50,7 +50,7 @@ int main(int argc, char **argv, char **env)
 		if (av == NULL)
 		{
 			free(line);
-			exit(98);
+			continue;
 		}
 		chk_build = (*builtins(av[0]))(av, line, &env_cp, &errval);
 		if (chk_build == 1)
