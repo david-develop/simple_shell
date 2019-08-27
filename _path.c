@@ -113,6 +113,8 @@ char **path_exp(char **vect, char **env)
 		}
 		free(mix_direx);
 	}
-	free(aux_ex), free(path_values), _freearrp(tokens);
+	free(aux_ex);
+	free(path_values);
+	_freearrp(tokens);
 	return (vect);
 }
