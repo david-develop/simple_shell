@@ -42,13 +42,15 @@ char **tokenizer(char *string_to_split, char *delim)
  */
 char **path_exp(char **vect, char **env)
 {
-	unsigned int i;
+	unsigned int i, count;
 	char delim[] = "=", **tokens;
 	char *token, *cp_tok, *cp_env, *string_to_split, *mix_direx, *aux_ex;
 	struct stat st;
 
 	if (vect[0][0] == '/' || (vect[0][0] == '.' && vect[0][1] == '/'))
 		return (vect);
+	for (count = 0; env[count] != NULL; count++)
+		;
 	for (i = 0; env[i] != NULL; i++)
 	{
 		cp_env = _strdup(env[i]);
@@ -60,6 +62,8 @@ char **path_exp(char **vect, char **env)
 			break; }
 		free(cp_tok), free(cp_env);
 	}
+	if (i == count)
+		return (vect);
 	if (_strchr(env[i], '/'))/*PILAS*/
 	{
 		if (env[i][5] == ':' || strstr(env[i], "::") != NULL)
