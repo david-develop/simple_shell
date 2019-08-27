@@ -6,7 +6,7 @@
  */
 char **split_line(char *line)
 {
-	char delim[] = " \n";
+	char delim[] = " \n\t\r\a";
 	char *token;
 	char **av;
 	/*Remember coun_words to 0 for the real case*/
@@ -21,7 +21,7 @@ char **split_line(char *line)
 		}
 	}
 	/*Get the 1st token*/
-	token = strtok(line, delim);
+	token = _strtok(line, delim);
 	av = _calloc(count_words, sizeof(char *));
 	if (av == NULL)
 		return (NULL);
@@ -35,7 +35,7 @@ char **split_line(char *line)
 			return (NULL);
 		}
 		count_buff++;
-		token = strtok(NULL, delim);
+		token = _strtok(NULL, delim);
 	}
 	/*Finish the **array with NULL*/
 	av[count_buff] = NULL;
