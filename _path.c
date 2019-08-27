@@ -1,11 +1,12 @@
 #include "header.h"
 
-char *check_path_mod(char *path_val)
+char *check_path_mod(char *path_val, char *vect_0)
 {
 	int i, j, len;
 	char *mod_path = NULL;
+	struct stat st;
 
-	if (path_val[0] == ':')
+	if (path_val[0] == ':' && (stat(vect_0, &st) == 0))
 	{
 		free(path_val);
 		return (NULL);
@@ -89,7 +90,7 @@ char **path_exp(char **vect, char **env)
 	if (vect[0][0] == '/' || (vect[0][0] == '.' && vect[0][1] == '/'))
 		return (vect);
 	path_values = _strdup(_strchr(env[i], '=') + 1);
-	path_values = check_path_mod(path_values);
+	path_values = check_path_mod(path_values, vect[0]);
 	if (path_values == NULL)
 	{
 		return (vect);
