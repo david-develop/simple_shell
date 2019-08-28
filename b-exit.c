@@ -96,6 +96,7 @@ int exit_f(char **av, char *line, char ***env, err_t *errval)
 			if (!(_isdigit(av[1][i])))
 			{
 				print_err_exit(errval, av);
+				errval->exit_status = 2;
 				return (1);
 			}
 		}
@@ -103,6 +104,7 @@ int exit_f(char **av, char *line, char ***env, err_t *errval)
 		if (sta_n < 0 || sta_n > 2147483647)
 		{
 			print_err_exit(errval, av);
+			errval->exit_status = 2;
 			return (1);
 		}
 		free(line), _freearrp(av), _freearrp(*env);
