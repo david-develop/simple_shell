@@ -7,7 +7,7 @@
  * @env: enviroments.
  * Return: pointer to the string.
  */
-char *read_line(char **env)
+char *read_line(char **env, err_t *errval)
 {
 	char *line = NULL;
 	size_t buffsz = 0;
@@ -26,7 +26,7 @@ char *read_line(char **env)
 			write(STDIN_FILENO, &nl, 1);
 			_freearrp(env);
 			free(line);
-			exit(0);
+			exit(errval->exit_status);
 		}
 		if (line == NULL || line[0] == '\n')
 			continue;
