@@ -12,11 +12,13 @@
  *
  * @argv_0: firts command.
  * @e_c: prompt counter.
+ * @exit_status: exit stats value.
  */
 typedef struct er_val
 {
 	char *argv_0;
 	int e_c;
+	int exit_status;
 } err_t;
 
 /**

@@ -66,6 +66,7 @@ void print_err(err_t *errval, int ca, char *av_1)
 		write(STDERR_FILENO, ": cd: can't cd to ", 18);
 		write(STDERR_FILENO, av_1, _strlen(av_1));
 		write(STDERR_FILENO, "\n", 1);
+		errval->exit_status = 2;
 	}
 	else if (ca == 1)
 	{
@@ -74,6 +75,7 @@ void print_err(err_t *errval, int ca, char *av_1)
 		print_err_numb(errval->e_c);
 		write(STDERR_FILENO, ": cd: HOME variable doesn't exist ", 34);
 		write(STDERR_FILENO, "or its path is empty\n", 21);
+		errval->exit_status = 2;
 	}
 	else if (ca == 2)
 	{
@@ -82,6 +84,7 @@ void print_err(err_t *errval, int ca, char *av_1)
 		print_err_numb(errval->e_c);
 		write(STDERR_FILENO, ": cd: OLDPWD variable doesn't ", 30);
 		write(STDERR_FILENO, "exist or its path is empty\n", 27);
+		errval->exit_status = 2;
 	}
 	else if (ca == 3)
 	{
@@ -89,6 +92,7 @@ void print_err(err_t *errval, int ca, char *av_1)
 		write(STDERR_FILENO, ": ", 2);
 		print_err_numb(errval->e_c);
 		write(STDERR_FILENO, ": cd: error malloc", 18);
+		errval->exit_status = 2;
 	}
 }
 /**

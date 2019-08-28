@@ -1,6 +1,23 @@
 #include "header.h"
 
 /**
+ * print_err_exit - print errors of cd.
+ * @errval: error print data.
+ * @av: arguments.
+ */
+void print_err_exit(err_t *errval, char **av)
+{
+	write(STDERR_FILENO, errval->argv_0, _strlen(errval->argv_0));
+	write(STDERR_FILENO, ": ", 2);
+	print_err_numb(errval->e_c);
+	write(STDERR_FILENO, ": ", 2);
+	write(STDERR_FILENO, av[0], _strlen(av[0]));
+	write(STDERR_FILENO, ": Illegal number: ", 18);
+	write(STDERR_FILENO, av[1], _strlen(av[1]));
+	write(STDERR_FILENO, "\n", 1);
+}
+
+/**
  * _isdigit - Verify if variable is a digit from 0 to 9
  * @c: variable for value input.
  * Return: when input is a digit return 1.
@@ -19,15 +36,19 @@ int _isdigit(int c)
 }
 
 /**
- * _atoi - function that convert to integrer.
+ * _atoi_mod - function that convert to integrer modified for exit function.
  * @s: input string.
  *
- * Return: integrer.
+ * Return: integrer or -1 if number is too big.
  */
-long int _atoi(char *s)
+long int _atoi_mod(char *s)
 {
 	unsigned long int res = 0, sing = 1, i, si;
 
+	if (_strlen(s) > 10)
+	{
+		return (-1);
+	}
 	for (i = 0; s[i] != '\0'; i++)
 	{
 		if (s[i] >= '0' && s[i] <= '9')
@@ -74,33 +95,19 @@ int exit_f(char **av, char *line, char ***env, err_t *errval)
 		{
 			if (!(_isdigit(av[1][i])))
 			{
-				write(STDERR_FILENO, errval->argv_0, _strlen(errval->argv_0));
-				write(STDERR_FILENO, ": ", 2);
-				print_err_numb(errval->e_c);
-				write(STDERR_FILENO, ": ", 2);
-				write(STDERR_FILENO, av[0], _strlen(av[0]));
-				write(STDERR_FILENO, ": Illegal number: ", 18);
-				write(STDERR_FILENO, av[1], _strlen(av[1]));
-				write(STDERR_FILENO, "\n", 1);
+				print_err_exit(errval, av);
 				return (1);
 			}
 		}
-		sta_n = _atoi(av[1]);
-		if (sta_n < 0 || sta_n > 2147483647 || _strlen(av[1]) > 10)
+		sta_n = _atoi_mod(av[1]);
+		if (sta_n < 0 || sta_n > 2147483647)
 		{
-			write(STDERR_FILENO, errval->argv_0, _strlen(errval->argv_0));
-			write(STDERR_FILENO, ": ", 2);
-			print_err_numb(errval->e_c);
-			write(STDERR_FILENO, ": ", 2);
-			write(STDERR_FILENO, av[0], _strlen(av[0]));
-			write(STDERR_FILENO, ": Illegal number: ", 18);
-			write(STDERR_FILENO, av[1], _strlen(av[1]));
-			write(STDERR_FILENO, "\n", 1);
+			print_err_exit(errval, av);
 			return (1);
 		}
 		free(line), _freearrp(av), _freearrp(*env);
 		exit(sta_n);
 	}
 	free(line), _freearrp(av), _freearrp(*env);
-	exit(0);
+	exit(errval->exit_status);
 }
