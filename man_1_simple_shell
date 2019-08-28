@@ -7,13 +7,8 @@ simple_shell is a customized command interpreter for the system that is a basic 
 The simple_shell is a program that reads lines from the terminal, interprets them, and generally executes other commands. In case of a missing information or a mistake, the program will show to the user the kind of error.
 .SH Invocation
 The program can work both interactive and non-interactive mode.
-.SH Quoting
-Quoting is used to remove the special meaning of certain characters or
-words to the shell, such as operators, whitespace, or keywords.
-There are three types of quoting: matched single quotes,
-matched double quotes, and backslash.
 .SH Commands
-The shell interprets the words it reads according if are simple commands or builtins functions.
+The shell interprets the words and reads them  according if are simple or builtins commands.
 .SH Search and Execution
 This program excecute two types of commands: shell functions, builtin commands. They each are executed in a different way.
 .P
