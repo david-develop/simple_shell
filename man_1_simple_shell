@@ -2,7 +2,7 @@
 .SH NAME
 simple shell
 .SH DESCRIPTION
-simple_shell is the customized command interpreter for the system. Being a basic version of sh. We can perfom with some specific functions to work inside our terminal.
+simple_shell is a customized command interpreter for the system that is a basic version of sh. We can perfom with some specific functions to work inside terminal.
 .SH Overview
 The simple_shell is a program that reads lines from either a file or from the terminal, interprets them, and generally executes other commands. In case of a missing information or a mistake, the program will show to the user the kind of error.
 .SH Invocation
