@@ -21,19 +21,24 @@ need to perform some operation that can't be performed by a separate
 process.
 
 .TP
-exit [status]
+exit [status]:
+.P
 Cause normal process termination, the status must be transmitted to the parent process. If the status is not defined by user its value is 0.
 .TP
-env
+env:
+.P
 print enviroment.
 .TP
-setenv
+setenv:
+.P
 Create or edit environmental variables.
 .TP
-unsetenv
+unsetenv:
+.P
 Delete environmental variables.
 .TP
-cd
+cd:
+.P
 Changes the current directory of the process.
 
 .SH ENVIRONMENT
