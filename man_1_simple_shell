@@ -6,7 +6,7 @@ simple_shell is a customized command interpreter for the system that is a basic 
 .SH Overview
 The simple_shell is a program that reads lines from the terminal, interprets them, and generally executes other commands. In case of a missing information or a mistake, the program will show to the user the kind of error.
 .SH Invocation
-No args are present and if the standard input of the shell is connected to a terminal. The program can work both interactive and non-interactive mode.
+The program can work both interactive and non-interactive mode.
 .SH Quoting
 Quoting is used to remove the special meaning of certain characters or
 words to the shell, such as operators, whitespace, or keywords.
