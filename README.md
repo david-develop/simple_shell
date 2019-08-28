@@ -121,6 +121,8 @@ Changes the current directory of the process.
 |**General functions:** <br> <ul> <li>g-calloc.c</li> <li>g-cpy_arrp.c</li><li>g-findenv.c</li><li>g-freearrp.c</li><li>g-freearrp.c</li><li>g-freearrp.c</li><li>g-freearrp.c</li><li>g-str_concat.c</li><li>g-strchr.c</li><li>g-strcmp.c</li><li>g-strdup.c</li><li>g-strlen.c</li><li>g-strtok.c</li></ul> | Implementation of standard C libraries
 
 ------------
+### More Info
+[sh(1)](https://linux.die.net/man/1/sh "sh(1)")
 
 ### Authors
 
