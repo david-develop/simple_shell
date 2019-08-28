@@ -63,4 +63,10 @@ int setenv_f(char **av, char *line, char ***env, err_t *errval);
 int unsetenv_f(char **av, char *line, char ***env, err_t *errval);
 int change_dir(char **av, char *line, char ***env, err_t *errval);
 
+/*error functions*/
+void print_err(err_t *errval, int ca, char *av_1);
+
+/*cd builtin function*/
+char **setenv_cd(char *name_var, char *cont_var, char **env);
+
 #endif

@@ -5,6 +5,7 @@
 /**
  * read_line - read the input line from the stream.
  * @env: enviroments.
+ * @errval: error data.
  * Return: pointer to the string.
  */
 char *read_line(char **env, err_t *errval)
