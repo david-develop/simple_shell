@@ -20,7 +20,7 @@ int exec_func(char **av, char *line, char **env, err_t *errval)
 	}
 	if (child_pid == 0)
 	{
-		if (execve(av[0], av, NULL) == -1)
+		if (execve(av[0], av, env) == -1)
 		{
 			write(STDERR_FILENO, errval->argv_0, _strlen(errval->argv_0));
 			write(STDERR_FILENO, ": ", 2);
