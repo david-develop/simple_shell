@@ -9,22 +9,12 @@ The simple_shell is a program that reads lines from the terminal, interprets the
 The program can work both interactive and non-interactive mode.
 .SH Commands
 The shell interprets the words and reads them  according if are simple or builtins commands.
-.SH Search and Execution
-This program excecute two types of commands: shell functions, builtin commands. They each are executed in a different way.
-.P
-When a shell function is executed, all of the shell positional parameters(except $0, which remains unchanged) are set to the arguments of the shell function. The variables which are explicitly placed in the environment of the command (by placing assignments to them before the function name) are made local to the function and are set to the values given.Then the command given in the function definition is executed.
-The positional parameters are restored to their original values
-when the command completes.This all occurs within the current shell.
-.P
-Shell builtins are executed internally to the shell, without spawning a new process.
 .SH Path Search
 When locating a command, the shell first looks to see if it has a shell function by that name. Then it looks for a builtin command by that name. If a builtin command is not found, one of two things happen:
 .P
-Command names containing a slash are simply executed without performing any searches. The shell searches each entry in PATH in turn for the command.
-The value of the PATH variable should be a series of entries separated by colons. Each entry consists of a directory name. The current directory may be indicated implicitly by an empty directory name, or explicitly by a single period.
-
-
-
+1. Command names containing a slash are simply executed without performing any searches. The shell searches each entry in PATH in turn for the command.
+.P
+2. The value of the PATH variable should be a series of entries separated by colons. Each entry consists of a directory name. The current directory may be indicated implicitly by an empty directory name, or explicitly by a single period.
 .SH BUILTINS
 This section lists the builtin commands which are builtin because they
 need to perform some operation that can't be performed by a separate
