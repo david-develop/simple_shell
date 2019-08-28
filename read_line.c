@@ -28,7 +28,7 @@ char *read_line(char **env)
 			free(line);
 			exit(0);
 		}
-		if (line[0] == '\n')
+		if (line == NULL || line[0] == '\n')
 			continue;
 		return (line);
 	}
