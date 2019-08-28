@@ -15,20 +15,20 @@ char *read_line(char **env)
 	char *prompt;
 	char nl = '\n';
 
-	prompt = GRN "mini-shell--" RESET RED "$ " RESET;
+	prompt = GRN "#cisfun" RESET RED "$ " RESET;
 
-	while (verif != -1)
+	while (1)
 	{
 		write(STDIN_FILENO, prompt, _strlen(prompt));
 		verif = getline(&line, &buffsz, stdin);
-		if (verif == -1)
+		if (verif == EOF || verif == -1)
 		{
 			write(STDIN_FILENO, &nl, 1);
 			_freearrp(env);
 			free(line);
 			exit(0);
 		}
-		if (line[0] == '\n')
+		if (line == NULL || line[0] == '\n')
 			continue;
 		return (line);
 	}

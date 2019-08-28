@@ -5,13 +5,15 @@
  * @av: array of pointers with arguments.
  * @line: string input by user
  * @env: enviroments address.
+ * @errval: error print data.
  * Return: 0 always.
  */
-int non_match(char **av, char *line, char ***env)
+int non_match(char **av, char *line, char ***env, err_t *errval)
 {
 	(void) av;
 	(void) line;
 	(void) env;
+	(void) errval;
 
 	return (0);
 }
@@ -20,7 +22,7 @@ int non_match(char **av, char *line, char ***env)
  * @av_0: argument.
  * Return: value of executed functions.
  */
-int (*builtins(char *av_0))(char **, char *, char ***)
+int (*builtins(char *av_0))(char **, char *, char ***, err_t *)
 {
 	built_t builts[] = {
 		{"exit", exit_f},
@@ -29,14 +31,14 @@ int (*builtins(char *av_0))(char **, char *, char ***)
 		{"unsetenv", unsetenv_f},
 		{"cd", change_dir},
 		{NULL, non_match}
-};
+	};
 
 	int i;
 	int num_builts = 5;
 
 	for (i = 0; i < num_builts; i++)
 	{
-		if (strcmp(av_0, builts[i].bui) == 0)
+		if (_strcmp(av_0, builts[i].bui) == 0)
 		{
 			return ((builts[i].f));
 		}

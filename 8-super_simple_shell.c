@@ -14,7 +14,7 @@ void handle_sign(int sig)
 	char *prompt;
 	(void) sig;
 
-	prompt = GRN "mini-shell--" RESET RED "$ " RESET;
+	prompt = GRN "#cisfun" RESET RED "$ " RESET;
 	signal(SIGINT, handle_sign);
 	write(STDIN_FILENO, "\n", 1);
 	write(STDIN_FILENO, prompt, _strlen(prompt));
@@ -34,21 +34,25 @@ int main(int argc, char **argv, char **env)
 	char **env_cp;
 	int status = 1;
 	int chk_build = 0;
+	err_t errval;
 	(void)argc;
 
+	errval.argv_0 = argv[0];
+	errval.e_c = 0;
 	env_cp = _cpyarrp(env);
 	signal(SIGINT, handle_sign);
 
 	while (status)
 	{
 		line = read_line(env_cp);
+		errval.e_c = errval.e_c + 1;
 		av = split_line(line);
 		if (av == NULL)
 		{
 			free(line);
-			exit(98);
+			continue;
 		}
-		chk_build = (*builtins(av[0]))(av, line, &env_cp);
+		chk_build = (*builtins(av[0]))(av, line, &env_cp, &errval);
 		if (chk_build == 1)
 		{
 			chk_build = 0;
@@ -57,7 +61,7 @@ int main(int argc, char **argv, char **env)
 			continue;
 		}
 		av = path_exp(av, env_cp);
-		status = exec_func(av, line, env_cp, argv[0]);
+		status = exec_func(av, line, env_cp, &errval);
 
 		free(line);
 		_freearrp(av);

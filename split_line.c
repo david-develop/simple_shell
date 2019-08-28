@@ -1,4 +1,44 @@
 #include "header.h"
+
+/**
+ * change_to_space - change delims to spaces.
+ * @line: given string.
+ */
+void change_to_space(char *line)
+{
+	int del, li;
+	char delim[] = "\n\t\r\a";
+
+	for (del = 0; delim[del] != '\0'; del++)
+	{
+		for (li = 0; line[li] != '\0'; li++)
+			if (delim[del] == line[li])
+				line[li] = ' ';
+	}
+}
+
+/**
+ * cwords - count number of words in a given string.
+ * @str: given string.
+ * @l: lenght of string.
+ * Return: number of words.
+ */
+int cwords(char *str, int l)
+{
+	int i, count_w = 0;
+
+	for (i = 0; i < l; i++)
+	{
+		if (str[i] != ' ')
+		{
+			for (; str[i] != ' '; i++)
+				;
+			count_w++;
+		}
+	}
+	return (count_w);
+}
+
 /**
  * split_line - separate the string to a vector of arguments av.
  * @line: pointer to the string.
@@ -6,23 +46,20 @@
  */
 char **split_line(char *line)
 {
-	char delim[] = " \n";
+	char delim[] = " ";
 	char *token;
 	char **av;
 	/*Remember coun_words to 0 for the real case*/
-	int count_words = 1, count_buff = 0, i, j;
+	int count_words, count_buff = 0, len;
 
-	for (i = 0; line[i]; i++)/*Count num of words to define malloc*/
-	{
-		for (j = 0; delim[j]; j++)
-		{
-			if (line[i] == delim[j])
-				count_words++;
-		}
-	}
+	change_to_space(line);
+	len = _strlen(line);
+	count_words = cwords(line, len);
+	if (count_words == 0)
+		return (NULL);
 	/*Get the 1st token*/
 	token = _strtok(line, delim);
-	av = _calloc(count_words, sizeof(char *));
+	av = _calloc((count_words + 1), sizeof(char *));
 	if (av == NULL)
 		return (NULL);
 	/*Get other tokens*/

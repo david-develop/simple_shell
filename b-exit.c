@@ -24,9 +24,9 @@ int _isdigit(int c)
  *
  * Return: integrer.
  */
-int _atoi(char *s)
+long int _atoi(char *s)
 {
-	unsigned int res = 0, sing = 1, i, si;
+	unsigned long int res = 0, sing = 1, i, si;
 
 	for (i = 0; s[i] != '\0'; i++)
 	{
@@ -58,13 +58,15 @@ int _atoi(char *s)
  * @av: array of pointers with arguments.
  * @line: string input by user
  * @env: enviroment variables data struct.
+ * @errval: error print values.
  * Return: 1 if executed.
  */
-int exit_f(char **av, char *line, char ***env)
+int exit_f(char **av, char *line, char ***env, err_t *errval)
 {
 	int i;
-	int sta_n;
+	long int sta_n;
 	(void) env;
+	(void) errval;
 
 	if (av[1])
 	{
@@ -72,19 +74,33 @@ int exit_f(char **av, char *line, char ***env)
 		{
 			if (!(_isdigit(av[1][i])))
 			{
-				/*revisar errors*/
-				perror("error: exit ilegal status");
+				write(STDERR_FILENO, errval->argv_0, _strlen(errval->argv_0));
+				write(STDERR_FILENO, ": ", 2);
+				print_err_numb(errval->e_c);
+				write(STDERR_FILENO, ": ", 2);
+				write(STDERR_FILENO, av[0], _strlen(av[0]));
+				write(STDERR_FILENO, ": Illegal number: ", 18);
+				write(STDERR_FILENO, av[1], _strlen(av[1]));
+				write(STDERR_FILENO, "\n", 1);
 				return (1);
 			}
 		}
 		sta_n = _atoi(av[1]);
-		free(line);
-		_freearrp(av);
-		_freearrp(*env);
+		if (sta_n < 0 || sta_n > 2147483647 || _strlen(av[1]) > 10)
+		{
+			write(STDERR_FILENO, errval->argv_0, _strlen(errval->argv_0));
+			write(STDERR_FILENO, ": ", 2);
+			print_err_numb(errval->e_c);
+			write(STDERR_FILENO, ": ", 2);
+			write(STDERR_FILENO, av[0], _strlen(av[0]));
+			write(STDERR_FILENO, ": Illegal number: ", 18);
+			write(STDERR_FILENO, av[1], _strlen(av[1]));
+			write(STDERR_FILENO, "\n", 1);
+			return (1);
+		}
+		free(line), _freearrp(av), _freearrp(*env);
 		exit(sta_n);
 	}
-	free(line);
-	_freearrp(av);
-	_freearrp(*env);
+	free(line), _freearrp(av), _freearrp(*env);
 	exit(0);
 }

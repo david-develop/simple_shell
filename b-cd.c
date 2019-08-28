@@ -27,7 +27,6 @@ char **setenv_cd(char *name_var, char *cont_var, char **env)
 		new_env = malloc((i + 2) * sizeof(char *));/*Re-allocate for new variable*/
 		if (new_env == NULL)
 		{
-			print_string("cpy env failed");/*check errors*/
 			free(aux);
 			free(new_evar);
 			return (NULL);
@@ -52,75 +51,126 @@ char **setenv_cd(char *name_var, char *cont_var, char **env)
 }
 
 /**
+ * print_err - print errors of cd.
+ * @errval: error print data.
+ * @ca: case number.
+ * @av_1: argument.
+ */
+void print_err(err_t *errval, int ca, char *av_1)
+{
+	if (ca == 0)
+	{
+		write(STDERR_FILENO, errval->argv_0, _strlen(errval->argv_0));
+		write(STDERR_FILENO, ": ", 2);
+		print_err_numb(errval->e_c);
+		write(STDERR_FILENO, ": cd: can't cd to ", 18);
+		write(STDERR_FILENO, av_1, _strlen(av_1));
+		write(STDERR_FILENO, "\n", 1);
+	}
+	else if (ca == 1)
+	{
+		write(STDERR_FILENO, errval->argv_0, _strlen(errval->argv_0));
+		write(STDERR_FILENO, ": ", 2);
+		print_err_numb(errval->e_c);
+		write(STDERR_FILENO, ": cd: HOME variable doesn't exist ", 34);
+		write(STDERR_FILENO, "or its path is empty\n", 21);
+	}
+	else if (ca == 2)
+	{
+		write(STDERR_FILENO, errval->argv_0, _strlen(errval->argv_0));
+		write(STDERR_FILENO, ": ", 2);
+		print_err_numb(errval->e_c);
+		write(STDERR_FILENO, ": cd: OLDPWD variable doesn't ", 30);
+		write(STDERR_FILENO, "exist or its path is empty\n", 27);
+	}
+	else if (ca == 3)
+	{
+		write(STDERR_FILENO, errval->argv_0, _strlen(errval->argv_0));
+		write(STDERR_FILENO, ": ", 2);
+		print_err_numb(errval->e_c);
+		write(STDERR_FILENO, ": cd: error malloc", 18);
+	}
+}
+/**
+ * check_env_val - checks for variable existance and errors.
+ * @av: array of pointers with arguments.
+ * @env: enviromental variables
+ * @errval: error print data.
+ * @e_nam: enviroment name;
+ * Return: variable index or -1 if error.
+ */
+int check_env_val(char **av, char **env, err_t *errval, char *e_nam)
+{
+	char *directory;
+	int i, c = 0;
+
+	if (_strcmp(e_nam, "HOME"))
+		c = 2;
+	if (_strcmp(e_nam, "OLDPWD"))
+		c = 1;
+	i = findenv(env, e_nam);
+	if (i == -1)
+	{
+		print_err(errval, c, av[1]);
+		return (-1);
+	}
+	directory = _strdup(_strchr(env[i], '/'));
+	if (directory == NULL)
+	{
+		print_err(errval, c, av[1]);
+		return (-1);
+	}
+	free(directory);
+	return (i);
+}
+
+/**
  * change_dir - change directory
  * @av: array of pointers with arguments.
  * @line: string input by user
  * @env: enviromental variables
+ * @errval: error print data.
  * Return: 1 if function executed.
  */
-int change_dir(char **av, char *line, char ***env)
+int change_dir(char **av, char *line, char ***env, err_t *errval)
 {
-	char *directory, *old_pwd, *dir_ptr, *buf;
-	int i;
+	char *directory, *old_pwd,  *buf;
+	int i, verif;
 	(void) line;
 
-	if (!av[1])/*cd   or HOME*/
-	{
-		i = findenv(*env, "HOME");
-		if (i == -1)
-		{
-			print_string("coudn't find variable");
-			return (1);
-		}
-		directory = strchr((*env)[i], '/');/*The new PWD*/
-		if (directory == NULL)
-		{
-			print_string("coudn't find dir");
-			return (1);
-		}
-		buf = malloc(PATH_MAX * sizeof(char));/*Change env var manually*/
-		if (buf != NULL)
-			dir_ptr = getcwd(buf, PATH_MAX);
-		old_pwd = dir_ptr;
-		chdir(directory);
+	buf = malloc(PATH_MAX * sizeof(char));
+	if (buf == NULL)
+		return (1);
+	if (!av[1])/*cd or HOME*/
+	{ i = check_env_val(av, *env, errval, "HOME");
+		if (i != -1)
+		{ directory = _strdup(_strchr((*env)[i], '/'));
+			if (directory == NULL)
+			{ print_err(errval, 1, av[1]);
+				return (1); }
+			old_pwd = getcwd(buf, PATH_MAX), chdir(directory);
+			*env = setenv_cd("OLDPWD", old_pwd, *env);
+			*env = setenv_cd("PWD", directory, *env);
+			free(directory); } }
+	else if (_strcmp(av[1], "-") == 0)/*cd - */
+	{ i = check_env_val(av, *env, errval, "OLDPWD");
+		if (i != -1)
+		{ directory = _strdup(_strchr((*env)[i], '/'));
+			if (directory == NULL)
+			{
+				print_err(errval, 2, av[1]);
+				return (1); }
+			old_pwd = getcwd(buf, PATH_MAX), chdir(directory);
+			*env = setenv_cd("OLDPWD", old_pwd, *env);
+			*env = setenv_cd("PWD", directory, *env);
+			print_string(directory), print_string("\n");
+			free(directory); } }
+	else if (av[1])
+	{ old_pwd = getcwd(buf, PATH_MAX), verif = chdir(av[1]);
+		if (verif == -1)
+			print_err(errval, 0, av[1]);
 		*env = setenv_cd("OLDPWD", old_pwd, *env);
-		*env = setenv_cd("PWD", directory, *env);
-		free(buf);
-	}
-	else if (strcmp(av[1], "-") == 0)/*cd - */
-	{
-		i = findenv(*env, "OLDPWD");
-		if (i == -1)
-		{
-			print_string("coudn't find variable");
-			return (1);
-		}
-		directory = _strdup(strchr((*env)[i], '/'));
-		if (directory == NULL)
-		{
-			print_string("coudn't find dir");
-			return (1);
-		}
-		buf = malloc(PATH_MAX * sizeof(char));/*Change env var manually*/
-		if (buf != NULL)
-			dir_ptr = getcwd(buf, PATH_MAX);
-		old_pwd = dir_ptr;
-		chdir(directory);
-		*env = setenv_cd("OLDPWD", old_pwd, *env);
-		*env = setenv_cd("PWD", directory, *env);
-		free(buf);
-		free(directory);
-	}
-	else
-	{
-		buf = malloc(PATH_MAX * sizeof(char));/*Change env var manually*/
-		if (buf != NULL)
-			dir_ptr = getcwd(buf, PATH_MAX);
-		old_pwd = dir_ptr;
-		chdir(av[1]);
-		*env = setenv_cd("OLDPWD", old_pwd, *env);
-		*env = setenv_cd("PWD", getcwd(buf, PATH_MAX), *env);
-		free(buf);
-	}
+		*env = setenv_cd("PWD", getcwd(buf, PATH_MAX), *env); }
+	free(buf);
 	return (1);
 }
