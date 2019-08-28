@@ -111,6 +111,7 @@ Changes the current directory of the process.
 ### Files Description
 | File  |Description   |
 | ------------ | ------------ |
+|**super_simple_shell.c**|main file|
 |**header.h**   | Contains all libraries and function prototypes  |
 | **_path.c** |Handle all path browsing to execute commands.|
 |**builtins.c**|Structures with all builtins commands. |
