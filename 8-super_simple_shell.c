@@ -39,6 +39,7 @@ int main(int argc, char **argv, char **env)
 
 	errval.argv_0 = argv[0];
 	errval.e_c = 0;
+	errval.exit_status = 0;
 	env_cp = _cpyarrp(env);
 	signal(SIGINT, handle_sign);
 

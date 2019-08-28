@@ -12,7 +12,6 @@ int env_f(char **av, char *line, char ***env, err_t *errval)
 {
 	unsigned int i;
 	(void) line;
-	(void) errval;
 
 	i = 0;
 
@@ -22,6 +21,7 @@ int env_f(char **av, char *line, char ***env, err_t *errval)
 		write(STDERR_FILENO, ": '", 3);
 		write(STDERR_FILENO, av[1], _strlen(av[1]));
 		write(STDERR_FILENO, "': No such file or directory\n", 29);
+		errval->exit_status = 2;
 		return (1);
 	}
 	while ((*env)[i] != NULL)

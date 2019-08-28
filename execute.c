@@ -39,6 +39,7 @@ void print_err_exec(err_t *errval, int ca, char **av)
 int exec_func(char **av, char *line, char **env, err_t *errval)
 {
 	pid_t child_pid;
+	pid_t pid;
 	int status;
 
 	child_pid = fork();
@@ -48,26 +49,33 @@ int exec_func(char **av, char *line, char **env, err_t *errval)
 	}
 	if (child_pid == 0)
 	{
-		if (access(av[0], X_OK) == -1)
-		{
-			print_err_exec(errval, 2, av);
-			_freearrp(av);
-			_freearrp(env);
-			free(line);
-			exit(126);
-		}
 		if (execve(av[0], av, env) == -1)
 		{
-			print_err_exec(errval, 1, av);
-			_freearrp(av);
-			_freearrp(env);
-			free(line);
-			exit(127);
+			if ((access(av[0], F_OK) == 0) && (access(av[0], X_OK) == -1))
+			{
+				print_err_exec(errval, 2, av);
+				_freearrp(av);
+				_freearrp(env);
+				free(line);
+				exit(126);
+			}
+			else
+			{
+				print_err_exec(errval, 1, av);
+				_freearrp(av);
+				_freearrp(env);
+				free(line);
+				exit(127);
+			}
 		}
 	}
 	else
 	{
-		wait(&status);
+		waitpid(child_pid, &status, WUNTRACED);
+		if (WIFEXITED(status))
+		{
+			errval->exit_status = WEXITSTATUS(status);
+		}
 	}
 	return (1);
 }

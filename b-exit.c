@@ -109,5 +109,5 @@ int exit_f(char **av, char *line, char ***env, err_t *errval)
 		exit(sta_n);
 	}
 	free(line), _freearrp(av), _freearrp(*env);
-	exit(0);
+	exit(errval->exit_status);
 }
