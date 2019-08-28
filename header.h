@@ -50,7 +50,7 @@ int _strcmp(char *s1, char *s2);
 char *_strchr(char *s, char c);
 
 /*shell functions*/
-char *read_line(char **env);
+char *read_line(char **env, err_t *errval);
 char **split_line(char *line);
 int (*builtins(char *av_0))(char **, char *, char ***, err_t *);
 char **path_exp(char **av, char **env);

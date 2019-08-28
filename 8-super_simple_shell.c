@@ -45,7 +45,7 @@ int main(int argc, char **argv, char **env)
 
 	while (status)
 	{
-		line = read_line(env_cp);
+		line = read_line(env_cp, &errval);
 		errval.e_c = errval.e_c + 1;
 		av = split_line(line);
 		if (av == NULL)
