@@ -15,7 +15,7 @@ char *read_line(char **env)
 	char *prompt;
 	char nl = '\n';
 
-	prompt = GRN "mini-shell--" RESET RED "$ " RESET;
+	prompt = GRN "#cisfun" RESET RED "$ " RESET;
 
 	while (verif != -1)
 	{

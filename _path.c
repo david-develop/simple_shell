@@ -58,12 +58,12 @@ char **tokenizer(char *string_to_split, char *delim)
 			if (string_to_split[i] == delim[j])
 				count_words++;
 	token = _strtok(string_to_split, delim);	/*Get the 1st token*/
-	tokens = calloc((count_words + 1), sizeof(char *));
+	tokens = _calloc((count_words + 1), sizeof(char *));
 	if (tokens == NULL)
 		return (NULL);
 	while (token != NULL)/*Get other tokens*/
 	{
-		tokens[count_buff] = strdup(token);
+		tokens[count_buff] = _strdup(token);
 		if (tokens[count_buff] == NULL)
 		{
 			_freearrp(tokens);

@@ -38,7 +38,7 @@ int (*builtins(char *av_0))(char **, char *, char ***, err_t *)
 
 	for (i = 0; i < num_builts; i++)
 	{
-		if (strcmp(av_0, builts[i].bui) == 0)
+		if (_strcmp(av_0, builts[i].bui) == 0)
 		{
 			return ((builts[i].f));
 		}

@@ -14,7 +14,7 @@ void handle_sign(int sig)
 	char *prompt;
 	(void) sig;
 
-	prompt = GRN "mini-shell--" RESET RED "$ " RESET;
+	prompt = GRN "#cisfun" RESET RED "$ " RESET;
 	signal(SIGINT, handle_sign);
 	write(STDIN_FILENO, "\n", 1);
 	write(STDIN_FILENO, prompt, _strlen(prompt));
