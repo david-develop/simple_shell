@@ -39,7 +39,6 @@ void print_err_exec(err_t *errval, int ca, char **av)
 int exec_func(char **av, char *line, char **env, err_t *errval)
 {
 	pid_t child_pid;
-	pid_t pid;
 	int status;
 
 	child_pid = fork();
