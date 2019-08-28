@@ -11,17 +11,16 @@ char *read_line(char **env)
 {
 	char *line = NULL;
 	size_t buffsz = 0;
-	ssize_t verif = 1;
+	/*ssize_t verif = 1;*/
 	char *prompt;
 	char nl = '\n';
 
 	prompt = GRN "#cisfun" RESET RED "$ " RESET;
 
-	while (verif != -1)
+	while (1)
 	{
 		write(STDIN_FILENO, prompt, _strlen(prompt));
-		verif = getline(&line, &buffsz, stdin);
-		if (verif == -1)
+		if (getline(&line, &buffsz, stdin) == EOF)
 		{
 			write(STDIN_FILENO, &nl, 1);
 			_freearrp(env);

@@ -20,7 +20,7 @@ int findenv(char **env, char *cmp_val)
 		cp_env = _strdup(env[i]);
 		token = _strtok(cp_env, delim);
 		cp_tok = _strdup(token);
-		if (strcmp(cp_tok, cmp_val) == 0)/*PILAS strcmp*/
+		if (_strcmp(cp_tok, cmp_val) == 0)/*PILAS strcmp*/
 		{
 			free(cp_tok);
 			free(cp_env);

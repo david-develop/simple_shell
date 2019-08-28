@@ -3,7 +3,6 @@
 #include <unistd.h>
 #include <stdlib.h>
 #include <stdio.h>
-#include <string.h>
 #include <sys/types.h>
 #include <sys/wait.h>
 #include <sys/stat.h>
@@ -58,7 +57,6 @@ int exec_func(char **av, char *line, char **env, err_t *errval);
 /*Builtins*/
 int exit_f(char **av, char *line, char ***env, err_t *errval);
 int env_f(char **av, char *line, char ***env, err_t *errval);
-ssize_t _getline(char **line, size_t *buffsz, FILE *stream);
 int setenv_f(char **av, char *line, char ***env, err_t *errval);
 int unsetenv_f(char **av, char *line, char ***env, err_t *errval);
 int change_dir(char **av, char *line, char ***env, err_t *errval);
