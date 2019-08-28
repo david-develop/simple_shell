@@ -11,7 +11,7 @@ char *read_line(char **env)
 {
 	char *line = NULL;
 	size_t buffsz = 0;
-	/*ssize_t verif = 1;*/
+	ssize_t verif = 1;
 	char *prompt;
 	char nl = '\n';
 
@@ -20,7 +20,8 @@ char *read_line(char **env)
 	while (1)
 	{
 		write(STDIN_FILENO, prompt, _strlen(prompt));
-		if (getline(&line, &buffsz, stdin) == EOF)
+		verif = getline(&line, &buffsz, stdin);
+		if (verif == EOF || verif == -1)
 		{
 			write(STDIN_FILENO, &nl, 1);
 			_freearrp(env);
