@@ -1,6 +1,34 @@
 #include "header.h"
 
 /**
+ * print_err_exec - print errors for execute function.
+ * @errval: error print data.
+ * @ca: case number.
+ * @av: arguments.
+ */
+void print_err_exec(err_t *errval, int ca, char **av)
+{
+	if (ca == 1)
+	{
+		write(STDERR_FILENO, errval->argv_0, _strlen(errval->argv_0));
+		write(STDERR_FILENO, ": ", 2);
+		print_err_numb(errval->e_c);
+		write(STDERR_FILENO, ": ", 2);
+		write(STDERR_FILENO, av[0], _strlen(av[0]));
+		write(STDERR_FILENO, ": not found\n", 12);
+	}
+	else if (ca == 2)
+	{
+		write(STDERR_FILENO, errval->argv_0, _strlen(errval->argv_0));
+		write(STDERR_FILENO, ": ", 2);
+		print_err_numb(errval->e_c);
+		write(STDERR_FILENO, ": ", 2);
+		write(STDERR_FILENO, av[0], _strlen(av[0]));
+		write(STDERR_FILENO, ": Permission denied\n", 20);
+	}
+}
+
+/**
  * exec_func - process the arguments and executes the proccesses
  * @av: array of pointers with arguments.
  * @line: string input by user
@@ -20,14 +48,17 @@ int exec_func(char **av, char *line, char **env, err_t *errval)
 	}
 	if (child_pid == 0)
 	{
+		if (access(av[0], X_OK) == -1)
+		{
+			print_err_exec(errval, 2, av);
+			_freearrp(av);
+			_freearrp(env);
+			free(line);
+			exit(126);
+		}
 		if (execve(av[0], av, env) == -1)
 		{
-			write(STDERR_FILENO, errval->argv_0, _strlen(errval->argv_0));
-			write(STDERR_FILENO, ": ", 2);
-			print_err_numb(errval->e_c);
-			write(STDERR_FILENO, ": ", 2);
-			write(STDERR_FILENO, av[0], _strlen(av[0]));
-			write(STDERR_FILENO, ": not found\n", 12);
+			print_err_exec(errval, 1, av);
 			_freearrp(av);
 			_freearrp(env);
 			free(line);
