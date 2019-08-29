@@ -58,14 +58,12 @@ int setenv_f(char **av, char *line, char ***env, err_t *errval)
 		write(STDERR_FILENO, ": ", 2);
 		write(STDERR_FILENO, av[0], _strlen(av[0]));
 		write(STDERR_FILENO, ": wrong sintax\n", 15);
-		errval->exit_status = 2;
 		return (1);
 	}
 	verif = findenv((*env), av[1]);
 	if (verif == -1)
 	{
 		*env = new_env(av, (*env));
-		errval->exit_status = 0;
 		return (1);
 	}
 	else
@@ -76,7 +74,6 @@ int setenv_f(char **av, char *line, char ***env, err_t *errval)
 		free((*env)[verif]);
 		(*env)[verif] = mod_env;
 		free(aux);
-		errval->exit_status = 0;
 		return (1);
 	}
 }
