@@ -1,6 +1,8 @@
 .TH man 1 "August 27, 2019" "0.10" "simple_shell"
 .SH NAME
-simple shell
+simple_shell - Command language interpreter
+.SH SYNOPSIS
+\fB./hsh\fR
 .SH DESCRIPTION
 simple_shell is a customized command interpreter for the system that is a basic version of sh. We can perfom with some specific functions to work inside terminal.
 .SH Overview
