@@ -1,6 +1,14 @@
 #include "header.h"
 #define PATH_MAX 4096
 
+/**
+ * cd_home - change directory case home or cd
+ * @av: array of pointers with arguments.
+ * @env: enviromental variables
+ * @buf: buffer for the getcwd.
+ * @errval: error print data.
+ */
+
 void cd_home(char **av, char ***env, err_t *errval, char *buf)
 {
 	char *directory, *old_pwd;
@@ -25,6 +33,13 @@ void cd_home(char **av, char ***env, err_t *errval, char *buf)
 	free(directory);
 }
 
+/**
+ * cd_old - change directory case cd -
+ * @av: array of pointers with arguments.
+ * @env: enviromental variables
+ * @errval: error print data.
+ * @buf: buffer for the getcwd.
+ */
 
 void cd_old(char **av, char ***env, err_t *errval, char *buf)
 {
@@ -52,6 +67,14 @@ void cd_old(char **av, char ***env, err_t *errval, char *buf)
 	print_string("\n");
 	free(directory);
 }
+
+/**
+ * cd_dir - change to given directory
+ * @av: array of pointers with arguments.
+ * @env: enviromental variables
+ * @errval: error print data.
+ * @buf: buffer for the getcwd.
+ */
 
 void cd_dir(char **av, char ***env, err_t *errval, char *buf)
 {

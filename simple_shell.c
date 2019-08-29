@@ -30,9 +30,9 @@ void handle_sign(int sig)
 
 int main(int argc, char **argv, char **env)
 {
-	char *line = NULL, *buf = NULL;
+	char *line = NULL;
 	char **av, **env_cp;
-	int status = 1, chk_build = 0, i = 0;
+	int status = 1, chk_build = 0;
 	err_t errval;
 	(void)argc;
 
@@ -41,33 +41,29 @@ int main(int argc, char **argv, char **env)
 	errval.exit_status = 0;
 	env_cp = _cpyarrp(env);
 	signal(SIGINT, handle_sign);
-	i = findenv(env_cp, "PWD");
-	if (i == -1)
-	{
-		buf = malloc(PATH_MAX * sizeof(char));
-		if (buf == NULL)
-			exit(2);
-		env_cp = setenv_cd("PWD", getcwd(buf, PATH_MAX), env_cp);
-		free(buf);
-	}
+
 	while (status)
 	{
 		line = read_line(env_cp, &errval);
 		errval.e_c = errval.e_c + 1;
 		av = split_line(line);
 		if (av == NULL)
-		{ free(line);
-			continue; }
+		{
+			free(line);
+			continue;
+		}
 		chk_build = (*builtins(av[0]))(av, line, &env_cp, &errval);
 		if (chk_build == 1)
 		{
 			chk_build = 0;
 			free(line);
 			_freearrp(av);
-			continue; }
+			continue;
+		}
 		av = path_exp(av, env_cp);
 		status = exec_func(av, line, env_cp, &errval);
 		free(line);
-		_freearrp(av); }
+		_freearrp(av);
+	}
 	return (0);
 }
