@@ -15,6 +15,9 @@ When locating a command, the shell first looks to see if it has a shell function
 1. Command names containing a slash are simply executed without performing any searches. The shell searches each entry in PATH in turn for the command.
 .P
 2. The value of the PATH variable should be a series of entries separated by colons. Each entry consists of a directory name. The current directory may be indicated implicitly by an empty directory name, or explicitly by a single period.
+.SH EXIT STATUS
+.P
+Errors that are detected by the shell, such as a syntax error, will cause the shell to exit with a non-zero exit status.  If the shell is not an interactive shell, the execution of the shell file will be aborted.  Otherwise the shell will return the exit status of the last command executed, or if the exit builtin is used with a numeric argument, it will return the argument.
 .SH BUILTINS
 This section lists the builtin commands which are builtin because they
 need to perform some operation that can't be performed by a separate
