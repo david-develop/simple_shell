@@ -1,6 +1,5 @@
 #include "header.h"
 #include <signal.h>
-#define PATH_MAX 4096
 #define RED   "\x1B[31m"
 #define GRN   "\x1B[32m"
 #define RESET "\x1B[0m"
@@ -31,8 +30,10 @@ void handle_sign(int sig)
 int main(int argc, char **argv, char **env)
 {
 	char *line = NULL;
-	char **av, **env_cp;
-	int status = 1, chk_build = 0;
+	char **av;
+	char **env_cp;
+	int status = 1;
+	int chk_build = 0;
 	err_t errval;
 	(void)argc;
 
@@ -62,6 +63,7 @@ int main(int argc, char **argv, char **env)
 		}
 		av = path_exp(av, env_cp);
 		status = exec_func(av, line, env_cp, &errval);
+
 		free(line);
 		_freearrp(av);
 	}
