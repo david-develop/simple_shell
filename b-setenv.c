@@ -65,6 +65,7 @@ int setenv_f(char **av, char *line, char ***env, err_t *errval)
 	if (verif == -1)
 	{
 		*env = new_env(av, (*env));
+		errval->exit_status = 0;
 		return (1);
 	}
 	else
@@ -75,6 +76,7 @@ int setenv_f(char **av, char *line, char ***env, err_t *errval)
 		free((*env)[verif]);
 		(*env)[verif] = mod_env;
 		free(aux);
+		errval->exit_status = 0;
 		return (1);
 	}
 }

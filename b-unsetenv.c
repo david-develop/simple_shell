@@ -70,6 +70,7 @@ int unsetenv_f(char **av, char *line, char ***env, err_t *errval)
 	else
 	{
 		*env = new_envmod((*env), verif);
+		errval->exit_status = 0;
 		return (1);
 	}
 }
