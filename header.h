@@ -6,6 +6,7 @@
 #include <sys/types.h>
 #include <sys/wait.h>
 #include <sys/stat.h>
+#include <fcntl.h>
 
 /**
  * struct er_val - Struct built
@@ -48,6 +49,7 @@ int findenv(char **env, char *cmp_val);
 void print_err_numb(int n);
 int _strcmp(char *s1, char *s2);
 char *_strchr(char *s, char c);
+void rev_string(char *s);
 
 /*shell functions*/
 char *read_line(char **env, err_t *errval);
@@ -62,9 +64,11 @@ int env_f(char **av, char *line, char ***env, err_t *errval);
 int setenv_f(char **av, char *line, char ***env, err_t *errval);
 int unsetenv_f(char **av, char *line, char ***env, err_t *errval);
 int change_dir(char **av, char *line, char ***env, err_t *errval);
+int help_f(char **av, char *line, char ***env, err_t *errval);
 
 /*error functions*/
 void print_err(err_t *errval, int ca, char *av_1);
+void printerr_help(err_t *errval, char **av, int i);
 
 /*cd builtin function*/
 char **setenv_cd(char *name_var, char *cont_var, char **env);

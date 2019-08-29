@@ -1,0 +1,8 @@
+exit: exit [n]
+    Exit the shell.
+
+    Exits the shell with a status of N.  If N is omitted, the exit status
+    is that of the last command executed.
+
+    Part of the simple_shell project:
+    <https://github.com/david-develop/simple_shell>

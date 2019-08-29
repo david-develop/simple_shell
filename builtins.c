@@ -30,11 +30,12 @@ int (*builtins(char *av_0))(char **, char *, char ***, err_t *)
 		{"setenv", setenv_f},
 		{"unsetenv", unsetenv_f},
 		{"cd", change_dir},
+		{"help", help_f},
 		{NULL, non_match}
 	};
 
 	int i;
-	int num_builts = 5;
+	int num_builts = 6;
 
 	for (i = 0; i < num_builts; i++)
 	{

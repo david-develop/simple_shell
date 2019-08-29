@@ -1,0 +1,8 @@
+Usage: setenv [NAME] [VALUE]
+
+       Set each NAME to VALUE in the environment.
+
+       If wrong sintax, it prints an error
+
+       Part of the simple_shell project:
+       <https://github.com/david-develop/simple_shell>

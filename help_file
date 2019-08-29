@@ -1,0 +1,10 @@
+help: help [BUILTIN]
+    Display information about builtin commands.
+
+    Displays brief summaries of builtin commands.
+
+    Exit Status:
+    Returns success unless BUILTIN is not found or an invalid sintax is given.
+
+    Part of the simple_shell project:
+    <https://github.com/david-develop/simple_shell>

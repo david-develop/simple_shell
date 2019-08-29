@@ -1,0 +1,20 @@
+cd: [dir] or [-]
+    Change the shell working directory.
+
+    Change the current directory to DIR.  The default DIR is the value of the
+    HOME shell variable.
+
+    The program is executed inside the shell, it is a built in of the custom
+    shell proyect.
+
+    It use the syscall chdir() and getcwd() for changeging the directory.
+    If the directory is not found, it will print an error.
+
+    Options:
+       -	Go to OLDPWD, if it doesn't not exist it will be created and
+       		set to the PWD.
+    [non arg]	Go to HOME.
+
+    Exit Status:
+    Returns 0 if the directory is changed, and $PWD OR $OLDPWD set correctly,
+    2 otherwise.

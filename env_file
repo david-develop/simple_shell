@@ -1,0 +1,8 @@
+Usage: env
+
+       Print the resulting environment.
+
+       Prints error if more than env argument.
+
+       Part of the simple_shell project:
+       <https://github.com/david-develop/simple_shell>
